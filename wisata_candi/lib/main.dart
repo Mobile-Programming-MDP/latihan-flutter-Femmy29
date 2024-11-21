@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_candi/Favorite_screen.dart';
-import 'package:wisata_candi/data/candi_data.dart';
+import 'package:wisata_candi/models/candi_data.dart';
 import 'package:wisata_candi/detail_screen.dart';
-import 'package:wisata_candi/models/Home_screen.dart';
-import 'package:wisata_candi/models/signin_screen.dart';
+import 'package:wisata_candi/Home_screen.dart';
+import 'package:wisata_candi/signin_screen.dart';
 import 'package:wisata_candi/search_screen.dart';
 import 'package:wisata_candi/profil_screen.dart';
 import 'package:wisata_candi/profil_info_item.dart';
+import 'package:wisata_candi/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainScreen(),
+      home: SignInScreen(),
       title: 'Wisata Candi',
       // Uncomment and adjust theme as needed
       // theme: ThemeData(
