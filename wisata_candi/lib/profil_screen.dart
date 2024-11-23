@@ -24,6 +24,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
     setState(() {
       isSignedIn = !isSignedIn;
     });
+    Navigator.pushNamed(context, '/signin');
   }
 
 //TODO 6: Implementasi fungsi signout
