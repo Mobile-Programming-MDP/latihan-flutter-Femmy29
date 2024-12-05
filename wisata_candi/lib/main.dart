@@ -1,50 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:wisata_candi/Favorite_screen.dart';
-import 'package:wisata_candi/models/candi_data.dart';
-import 'package:wisata_candi/detail_screen.dart';
-import 'package:wisata_candi/Home_screen.dart';
-import 'package:wisata_candi/signin_screen.dart';
-import 'package:wisata_candi/search_screen.dart';
+import 'package:wisata_candi/favorite_screen.dart';
+import 'package:wisata_candi/home_screen.dart';
 import 'package:wisata_candi/profil_screen.dart';
-import 'package:wisata_candi/profil_info_item.dart';
+import 'package:wisata_candi/search_screen.dart';
+import 'package:wisata_candi/signin_screen.dart';
 import 'package:wisata_candi/signup_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: SignInScreen(),
-      title: 'Wisata Candi',
-      initialRoute: '/',
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.deepPurple),
+          titleTextStyle: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+            .copyWith(
+                primary: Colors.deepPurple, surface: Colors.deepPurple[50]),
+      ),
+      title: "Wisata Candi",
+      // home: const SignUpScreen(),
+      initialRoute: '/signin',
       routes: {
-        '/homescreen': (context) => HomeScreen(),
-        '/signup': (context) => Signupscreen(),
-        '/signin': (context) => SignInScreen(),
-        '/profil': (context) => ProfilScreen(),
+        '/homescreen': (context) => const MainScreen(),
+        '/signin': (context) => const SignInScreen(),
+        '/signup': (context) => const SignUpScreen(),
       },
-      // Uncomment and adjust theme as needed
-      // theme: ThemeData(
-      //   appBarTheme: const AppBarTheme(
-      //     iconTheme: IconThemeData(color: Colors.deepPurple),
-      //     titleTextStyle: TextStyle(
-      //       color: Colors.deepPurple,
-      //       fontSize: 20,
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-      //   colorScheme:
-      //       ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
-      //     primary: Colors.deepPurple,
-      //     surface: Colors.deepPurple[50],
-      //   ),
-      //   useMaterial3: true,
-      // ),
+      //MainScreen(),
     );
   }
 }
@@ -57,27 +49,25 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // TODO1: Deklarasi Variabel
+  //TODO 1 : Deklarasi Var
   int _currentIndex = 0;
   final List<Widget> _children = [
-    HomeScreen(),
-    SearchScreen(),
-    FavoriteScreen(),
-    ProfilScreen(),
+    const HomeScreen(),
+    const SearchScreen(),
+    const FavoriteScreen(),
+    const ProfileScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO2:body
+      //TODO 2: body
       body: _children[_currentIndex],
-
-      //TODO3: BottomNavigationBar
+      //TODO 3 : bottomNavigationBar
       bottomNavigationBar: Theme(
+        //TODO 4 : child theme
         data: Theme.of(context).copyWith(
           canvasColor: Colors.deepPurple[50],
         ),
-        //TODO4: Buat data dan child dari theme
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {
@@ -90,19 +80,31 @@ class _MainScreenState extends State<MainScreen> {
           showUnselectedLabels: true,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.deepPurple,
+              ),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(
+                Icons.search,
+                color: Colors.deepPurple,
+              ),
               label: "Search",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: "Favorit",
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.deepPurple,
+              ),
+              label: "Favorite",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(
+                Icons.person,
+                color: Colors.deepPurple,
+              ),
               label: "Profile",
             ),
           ],

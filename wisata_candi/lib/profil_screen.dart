@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wisata_candi/profil_info_item.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
-
-class ProfilScreen extends StatefulWidget {
-  const ProfilScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<ProfilScreen> createState() => _ProfilScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfilScreenState extends State<ProfilScreen> {
-  //TODO 1 : BUAT VARIABEL YANG DI BUTUHKAN
-  bool isSignedIn = false;
-  String fullName = 'Femmy Johan';
-  String userName = 'Femmy';
+class _ProfileScreenState extends State<ProfileScreen> {
+  //TODO 1: Deklarasikan variabel yg dibutuhkan
+  bool isSignedIn = true;
+  String fullName = "Nur Rachmat";
+  String username = "nurrachmat";
   int favoriteCandiCount = 0;
 
-//TODO 5: Implementasi fungsi signin
-  void signin() {
-    setState(() {
-      isSignedIn = !isSignedIn;
-    });
+  //TODO 5 : Fungsi SignIn
+  void signIn() {
+    // setState(() {
+    //   isSignedIn = !isSignedIn;
+    // });
     Navigator.pushNamed(context, '/signin');
   }
 
-//TODO 6: Implementasi fungsi signout
-  void signOut() {
+  //TODO 6 : Fungsi SignOut
+  void signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isSignedIn = !isSignedIn;
     });
+    prefs.setBool('isSignedIn', false);
   }
 
   @override
@@ -45,10 +44,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
             color: Colors.deepPurple,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                //TODO 2: Bagian
+                //TODO 2: Buat bagian ProfileHeader berisi gambar
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -74,114 +73,93 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               Icons.camera_alt,
                               color: Colors.deepPurple[50],
                             ),
-                          ),
+                          )
                       ],
                     ),
                   ),
                 ),
-                // TODO 3 : Buat bagian Profileinfo
-                const SizedBox(height: 4),
+                //TODO 3: Buat bagian ProfileInfo
+                //row username /pengguna
+                const SizedBox(height: 20),
                 Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 4),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
-                      child: Row(
-                        children: [
-                          Icon(Icons.lock, color: Colors.amber),
-                          SizedBox(width: 8),
-                          Text(
-                            'Pengguna',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        ':$userName',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 4),
+                ProfilInfoItem(
+                  icon: Icons.lock,
+                  label: "Pengguna",
+                  value: username,
+                  iconColor: Colors.amber,
                 ),
                 //row nama
                 const SizedBox(height: 4),
                 Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 3,
-                      child: Row(
+                      child: const Row(
                         children: [
-                          Icon(Icons.lock, color: Colors.blue),
+                          Icon(Icons.person, color: Colors.blue),
                           SizedBox(width: 8),
                           Text(
                             'Nama',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        ':$fullName',
-                        style: TextStyle(fontSize: 18),
+                        ': $fullName',
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
-                    if (isSignedIn) Icon(Icons.edit),
+                    if (isSignedIn) const Icon(Icons.edit),
                   ],
                 ),
                 //row favorit
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 3,
-                      child: Row(
+                      child: const Row(
                         children: [
-                          Icon(Icons.lock, color: Colors.red),
+                          Icon(Icons.favorite, color: Colors.red),
                           SizedBox(width: 8),
                           Text(
                             'Favorit',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        ':Candi Prambanan',
-                        style: TextStyle(fontSize: 18),
+                        ': $favoriteCandiCount',
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                   ],
                 ),
-                //TODO4: Buat profil action
-                SizedBox(height: 4),
+                //TODO 4: Buat bagian profile action
+                const SizedBox(height: 4),
                 Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 isSignedIn
-                    ? TextButton(onPressed: () {}, child: Text('Sign Out'))
-                    : TextButton(onPressed: () {}, child: Text('sign In')),
+                    ? TextButton(
+                        onPressed: signOut, child: const Text('Sign Out'))
+                    : TextButton(
+                        onPressed: signIn, child: const Text('Sign In'))
               ],
             ),
-          ),
+          )
         ],
-      ), //
+      ),
     );
   }
 }

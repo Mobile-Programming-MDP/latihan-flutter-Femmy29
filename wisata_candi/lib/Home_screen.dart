@@ -21,10 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //TODO2: Buat body dengan GridView Builder
       body: GridView.builder(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         padding: const EdgeInsets.all(8),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
         itemCount: candiList.length,
         itemBuilder: (context, index) {
           Candi candi = candiList[index];
